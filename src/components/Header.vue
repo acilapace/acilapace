@@ -28,8 +28,7 @@
                     <b-navbar-nav class="ml-auto">
                         <b-nav-item-dropdown text="LANG" right>
                             <b-dropdown-item href="#">IT</b-dropdown-item>
-                            <b-dropdown-item href="#">EN</b-dropdown-item>
-                            <b-dropdown-item href="#">FR</b-dropdown-item>
+                            <b-dropdown-item href="#" disabled>AR</b-dropdown-item>
                         </b-nav-item-dropdown>
                     </b-navbar-nav>
                 </b-collapse>

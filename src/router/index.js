@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: index
+    component: index,
   },
   {
     path: '/scuola',
