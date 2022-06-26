@@ -2,65 +2,65 @@
     <div id="main">
         <div id="welcome" class="px-4 py-5 text-center">
             <img id="logo" src="../assets/logo_asslapace.png" alt="logo_asslapace">
-            <h1 class="display-5 fw-bold text-light" style="position: relative;">ASSOCIAZIONE CULTURALE ISLAMICA "LA PACE"</h1>
+            <h1 class="display-5 fw-bold text-light" style="position: relative;">{{ $t('home.associazioneCulturaleIslamica') }}</h1>
             <div class="col-lg-6 mx-auto">
-                <h3 class="text-light">"O uomini, vi abbiamo creato da un maschio e una femmina e abbiamo fatto di voi popoli e tribù, affinché vi conosceste a vicenda. Presso Allah, il più nobile di voi è colui che più Lo teme. In verità Allah è sapiente, ben informato." (Corano, 49:13)</h3>
+                <h3 class="text-light">{{ $t('home.oUominiVi') }}</h3>
             </div>
         </div>
         <div class="px-4 py-4 text-center"></div>
         <div class="container-fluid">
             <div class="row" style="margin-bottom: 20px;">
                 <div class="col-lg-12" align="center">
-                    <h1 class="display-5 fw-bold" style="position: relative;">Attività Principali</h1>
+                    <h1 class="display-5 fw-bold" style="position: relative;">{{ $t('home.attivitPrincipali') }}</h1>
                 </div>
             </div>
             <div class="row justify-content-md-center">
                 <!--div class="col-lg-3 ml-2 mr-2 mt-2 mb-2 shadow bg-light rounded" align="center">
                     <img src="../assets/school.png" alt="Insegnamento lingua araba ed educazione islamica" width="140" height="140">
-                    <h2>Scuola di Lingua Araba ed Educazione Islamica</h2>
-                    <p>L'Associazione "La Pace" offre ai ragazzi dai 5 ai 15 anni corsi base di insegnamento della lingua araba accompagnati da corsi di educazione al credo islamico.</p>
-                    <p><a class="btn btn-secondary" @click="goToPage('Scuola')" role="button">Scopri di più &raquo;</a></p>
+                    <h2>{{ $t('home.scuolaDiLingua') }}</h2>
+                    <p>{{ $t('home.lassociazioneLaPace') }}</p>
+                    <p><a class="btn btn-secondary" @click="goToPage('Scuola')" role="button">{{ $t('home.scopriDiPiRaquo') }}</a></p>
                 </div-->
                 <div class="col-lg-3 ml-2 mr-2 mt-2 mb-2">
                     <div class="card shadow">
                         <img src="../assets/school_2.jpg" alt="Insegnamento lingua araba ed educazione islamica" style="border-radius: 5%">
                         <div class="card-body" align="center">
-                            <h2>Scuola di Lingua Araba ed Educazione Islamica</h2>
-                            <p class="card-text">L'Associazione "La Pace" offre ai ragazzi dai 5 ai 15 anni corsi base di insegnamento della lingua araba accompagnati da corsi di educazione al credo islamico.</p>
-                            <a class="btn btn-secondary" @click="goToPage('Scuola')" role="button">Scopri di più &raquo;</a>
+                            <h2>{{ $t('home.scuolaDiLingua1') }}</h2>
+                            <p class="card-text">{{ $t('home.lassociazioneLaPace1') }}</p>
+                            <a class="btn btn-secondary" @click="goToPage('Scuola')" role="button">{{ $t('home.scopriDiPiRaquo1') }}</a>
                         </div>
                     </div>
                 </div>
                 <!--div class="col-lg-3 ml-2 mr-2 mt-2 mb-2 shadow bg-light rounded" align="center">
                     <img src="../assets/handshake.png" alt="Integrazione sociale" width="140" height="140">
-                    <h2>Integrazione</h2>
-                    <p>L'Associazione "La Pace" svolge diverse attività di volontariato nel bassanese, collaborando con gli enti locali al fine di migliorare l'integrazione tra comunità di etnie e tradizioni differenti in una società multiculturale.</p>
-                    <p><a class="btn btn-secondary" @click="goToPage('Integrazione')" role="button">Scopri di più &raquo;</a></p>
+                    <h2>{{ $t('home.integrazione') }}</h2>
+                    <p>{{ $t('home.lassociazioneLaPace2') }}</p>
+                    <p><a class="btn btn-secondary" @click="goToPage('Integrazione')" role="button">{{ $t('home.scopriDiPiRaquo2') }}</a></p>
                 </div-->
                 <div class="col-lg-3 ml-2 mr-2 mt-2 mb-2">
                     <div class="card shadow">
                         <img src="../assets/handshake_2.jpg" alt="Insegnamento lingua araba ed educazione islamica" style="border-radius: 5%">
                         <div class="card-body" align="center">
-                            <h2>Integrazione</h2>
-                            <p class="card-text">L'Associazione "La Pace" svolge diverse attività di volontariato nel bassanese, collaborando con gli enti locali al fine di migliorare l'integrazione tra comunità di etnie e tradizioni differenti in una società multiculturale.</p>
-                            <a class="btn btn-secondary" @click="goToPage('Integrazione')" role="button">Scopri di più &raquo;</a>
+                            <h2>{{ $t('home.integrazione1') }}</h2>
+                            <p class="card-text">{{ $t('home.lassociazioneLaPace3') }}</p>
+                            <a class="btn btn-secondary" @click="goToPage('Integrazione')" role="button">{{ $t('home.scopriDiPiRaquo3') }}</a>
                         </div>
                         
                     </div>
                 </div>
                 <!--div class="col-lg-3 ml-2 mr-2 mt-2 mb-2 shadow bg-light rounded" align="center">
                     <img src="../assets/donate.png" alt="Supporto economico" width="140" height="140">
-                    <h2>Supporto Economico-sociale</h2>
-                    <p>L'Associazione "La Pace" supporta le famiglie più bisognose all'interno della comunità mediante donazioni volontarie da parte dei fedeli.</p>
-                    <p><a class="btn btn-secondary" @click="goToPage('Supporto')" role="button">Scopri di più &raquo;</a></p>
+                    <h2>{{ $t('home.supportoEconomicosociale') }}</h2>
+                    <p>{{ $t('home.lassociazioneLaPace4') }}</p>
+                    <p><a class="btn btn-secondary" @click="goToPage('Supporto')" role="button">{{ $t('home.scopriDiPiRaquo4') }}</a></p>
                 </div-->
                 <div class="col-lg-3 ml-2 mr-2 mt-2 mb-2">
                     <div class="card shadow">
                         <img src="../assets/donate.jpg" alt="Insegnamento lingua araba ed educazione islamica" style="border-radius: 5%">
                         <div class="card-body" align="center">
-                            <h2>Supporto Economico-sociale</h2>
-                            <p class="card-text">L'Associazione "La Pace" supporta economicamente chiunque ne abbia bisogno all'interno della comunità mediante donazioni volontarie da parte dei fedeli.</p>
-                            <a class="btn btn-secondary" @click="goToPage('SupportoES')" role="button">Scopri di più &raquo;</a>
+                            <h2>{{ $t('home.supportoEconomicosociale1') }}</h2>
+                            <p class="card-text">{{ $t('home.lassociazioneLaPace5') }}</p>
+                            <a class="btn btn-secondary" @click="goToPage('SupportoES')" role="button">{{ $t('home.scopriDiPiRaquo5') }}</a>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
             <div class="px-4 py-4 text-center"></div>
             <div class="row">
                 <div class="col-lg-12" align="center" style="margin-bottom: 20px;">
-                    <h1 class="display-5 fw-bold" style="position: relative;">Orari Preghiera</h1>
+                    <h1 class="display-5 fw-bold" style="position: relative;">{{ $t('home.orariPreghiera') }}</h1>
                 </div>
             </div>
             <div class="row">
@@ -81,7 +81,7 @@
             </div> 
             <!--div class="row">
                 <div class="col-lg-12" align="center" style="margin-bottom: 20px; margin-top: 20px">
-                    <h1 class="display-5 fw-bold" style="position: relative;">Discorso del Venerdì</h1>
+                    <h1 class="display-5 fw-bold" style="position: relative;">{{ $t('home.discorsoDelVenerd') }}</h1>
                 </div>
             </div>
             <div class="row">
