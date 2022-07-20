@@ -1,7 +1,7 @@
 <template>
-  <div id="discorsivenerdi">
-    <Header/>
-        <div class="container" align="center">
+    <div id="discorsivenerdi">
+        <Header/>
+        <!-- <div class="container" align="center">
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
@@ -22,45 +22,37 @@
             <p>&nbsp;</p>
             <p>&nbsp;</p>
             <p>&nbsp;</p>
-        </div>
-        <!--div class="container">
-            <div class="row mb-2 mt-3" v-for="document in documents" v-bind:key="document.id">
-                <div class="col-md-12">
-                    <div class="card flex-md-row mb-4 box-shadow h-md-250">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-primary">World</strong>
-                            <h3 class="mb-0">
-                                {{ document.title }}
-                            </h3>
-                            <div class="mb-1 text-muted">{{ document.date.day }} {{ document.date.month }} {{ document.date.year }}</div>
-                            <p class="card-text mb-auto">{{ document.content }}</p>
-                            <router-link :to="{ name: 'DiscorsoVenerdi', params: { id: document.id }}">Continua a leggere...</router-link>
+        </div> -->
+        <div class="container mt-5 mb-5">
+            <h1 align="center">Discorsi del Venerdì</h1>
+            <div align="center" v-if="documents.length===0">
+                <b-spinner class="m-5" style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+            </div>
+            <div id="discorso-venerdi" :items="documents" :per-page="perPage" :current-page="currentPage">
+                <div class="row mb-2 mt-3" v-for="document in documents" v-bind:key="document.id">
+                    <div class="col-md-12">
+                        <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                            <div class="card-body d-flex flex-column align-items-start">
+                                <h3 class="mb-0"> {{ document.title }}</h3>
+                                <div class="mb-1 text-muted">
+                                    {{ new Date(document.created_at).getDate() }} 
+                                    {{ new Date(document.created_at).toLocaleString('default', { month: 'long' }) }} 
+                                    {{ new Date(document.created_at).getFullYear() }}
+                                </div>
+                                <p v-if="getLocale()=='it'" class="card-text mb-auto">{{ document.preview }}</p>
+                                <p v-else class="card-text mb-auto text-right" dir="rtl">{{ document.preview }}</p>
+                                <router-link :to="{ name: 'DiscorsoVenerdi', params: { id: document.id }}">Continua a leggere...</router-link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div-->
-    <Footer/>
-  </div>
+            <ul class="pagination justify-content-center">
+                <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" aria-controls="discorso-venerdi" @change="handlePageChange"></b-pagination>
+            </ul>
+        </div>
+        <Footer/>
+    </div>
 </template>
 
 <script>
@@ -73,118 +65,62 @@ export default {
         Header,
         Footer
     },
-
-    methods: {
-        getDiscorsoVenerdi(page, id) {
-            this.$router.push({ name: page, params: { id: id } })
-        }
+    created() {
+        this.getData();
+        this.getSize();
     },
-
+    mounted() {
+        this.$watch(
+            "$i18n.locale",
+            (newLocale, oldLocale) => {
+                if (newLocale === oldLocale) {
+                    return;
+                }
+                this.getData()
+            },
+            { immediate: true }
+        )
+    },
     data() {
         return {
-            documents: [
-                {
-                    id: 0,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 1,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 2,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 3,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 4,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 5,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 6,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 7,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 8,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-                {
-                    id: 9,
-                    title: 'L\'ESSERE UMANO TRA IL BENE E IL MALE',
-                    date: {
-                        day: 8,
-                        month: 'Ottobre',
-                        year: 2021,
-                    },
-                    content: 'L\'Islam - come tutti i messaggi divini - dipende nella sua riforma generale dall\'affinamento soprattutto dell\'anima umana, poiché dedica enormi sforzi per penetrare nelle sue profondità e introdurre i suoi insegnamenti nella sua essenza fino a interiorizzarli... Le religioni, per natura, considerano l\'anima retta come la parte principale per curarla. Un carattere dai forti principi morali, quindi…'
-                },
-            ],
+            perPage: 10,
+            currentPage: 1,
+            documents: [],
+            rows: 0,
         };
+    },
+    methods: {
+        getDiscorsoVenerdi(page, id) {
+            let routeData = this.$router.resolve({ name: page, params: { id: id } });
+            window.open(routeData.href, '_blank');
+        },
+        handlePageChange(value) {
+            this.currentPage = value;
+            this.getData();
+        },
+        getLocale() {
+            return this.$i18n.locale;
+        },
+        async getData() {
+            try {
+                const response = await this.$http.get(
+                    "https://discorsivenerdi.herokuapp.com/discorsi-venerdi?limit="+this.perPage+"&page="+this.currentPage +"&lang="+this.$i18n.locale
+                );
+                this.documents = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async getSize() {
+            try {
+                const response = await this.$http.get(
+                    "https://discorsivenerdi.herokuapp.com/discorsi-venerdi/size"
+                );
+                this.rows = response.data;
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 </script>
